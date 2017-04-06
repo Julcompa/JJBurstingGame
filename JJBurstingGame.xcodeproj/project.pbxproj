@@ -1,0 +1,339 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		F9079EB11E96B46E00690BF3 /* MyFireParticle.sks in Resources */ = {isa = PBXBuildFile; fileRef = F9079EB01E96B46E00690BF3 /* MyFireParticle.sks */; };
+		F94508D11E96846D0032BC68 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = F94508D01E96846D0032BC68 /* main.m */; };
+		F94508D41E96846D0032BC68 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = F94508D31E96846D0032BC68 /* AppDelegate.m */; };
+		F94508D61E96846D0032BC68 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F94508D51E96846D0032BC68 /* GameScene.sks */; };
+		F94508D81E96846D0032BC68 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = F94508D71E96846D0032BC68 /* Actions.sks */; };
+		F94508DB1E96846D0032BC68 /* GameScene.m in Sources */ = {isa = PBXBuildFile; fileRef = F94508DA1E96846D0032BC68 /* GameScene.m */; };
+		F94508DE1E96846D0032BC68 /* GameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = F94508DD1E96846D0032BC68 /* GameViewController.m */; };
+		F94508E11E96846D0032BC68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F94508DF1E96846D0032BC68 /* Main.storyboard */; };
+		F94508E31E96846D0032BC68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F94508E21E96846D0032BC68 /* Assets.xcassets */; };
+		F94508E61E96846D0032BC68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F94508E41E96846D0032BC68 /* LaunchScreen.storyboard */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		F9079EB01E96B46E00690BF3 /* MyFireParticle.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MyFireParticle.sks; sourceTree = "<group>"; };
+		F94508CC1E96846D0032BC68 /* JJBurstingGame.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JJBurstingGame.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		F94508D01E96846D0032BC68 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		F94508D21E96846D0032BC68 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		F94508D31E96846D0032BC68 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		F94508D51E96846D0032BC68 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
+		F94508D71E96846D0032BC68 /* Actions.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Actions.sks; sourceTree = "<group>"; };
+		F94508D91E96846D0032BC68 /* GameScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameScene.h; sourceTree = "<group>"; };
+		F94508DA1E96846D0032BC68 /* GameScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameScene.m; sourceTree = "<group>"; };
+		F94508DC1E96846D0032BC68 /* GameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GameViewController.h; sourceTree = "<group>"; };
+		F94508DD1E96846D0032BC68 /* GameViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GameViewController.m; sourceTree = "<group>"; };
+		F94508E01E96846D0032BC68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		F94508E21E96846D0032BC68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F94508E51E96846D0032BC68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		F94508E71E96846D0032BC68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		F94508C91E96846D0032BC68 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		F94508C31E96846D0032BC68 = {
+			isa = PBXGroup;
+			children = (
+				F94508CE1E96846D0032BC68 /* JJBurstingGame */,
+				F94508CD1E96846D0032BC68 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		F94508CD1E96846D0032BC68 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				F94508CC1E96846D0032BC68 /* JJBurstingGame.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		F94508CE1E96846D0032BC68 /* JJBurstingGame */ = {
+			isa = PBXGroup;
+			children = (
+				F94508D21E96846D0032BC68 /* AppDelegate.h */,
+				F94508D31E96846D0032BC68 /* AppDelegate.m */,
+				F94508D51E96846D0032BC68 /* GameScene.sks */,
+				F94508D71E96846D0032BC68 /* Actions.sks */,
+				F94508D91E96846D0032BC68 /* GameScene.h */,
+				F94508DA1E96846D0032BC68 /* GameScene.m */,
+				F9079EB01E96B46E00690BF3 /* MyFireParticle.sks */,
+				F94508DC1E96846D0032BC68 /* GameViewController.h */,
+				F94508DD1E96846D0032BC68 /* GameViewController.m */,
+				F94508DF1E96846D0032BC68 /* Main.storyboard */,
+				F94508E21E96846D0032BC68 /* Assets.xcassets */,
+				F94508E41E96846D0032BC68 /* LaunchScreen.storyboard */,
+				F94508E71E96846D0032BC68 /* Info.plist */,
+				F94508CF1E96846D0032BC68 /* Supporting Files */,
+			);
+			path = JJBurstingGame;
+			sourceTree = "<group>";
+		};
+		F94508CF1E96846D0032BC68 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				F94508D01E96846D0032BC68 /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		F94508CB1E96846D0032BC68 /* JJBurstingGame */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = F94508EA1E96846D0032BC68 /* Build configuration list for PBXNativeTarget "JJBurstingGame" */;
+			buildPhases = (
+				F94508C81E96846D0032BC68 /* Sources */,
+				F94508C91E96846D0032BC68 /* Frameworks */,
+				F94508CA1E96846D0032BC68 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = JJBurstingGame;
+			productName = JJBurstingGame;
+			productReference = F94508CC1E96846D0032BC68 /* JJBurstingGame.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		F94508C41E96846D0032BC68 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0830;
+				ORGANIZATIONNAME = "Julien Comparato";
+				TargetAttributes = {
+					F94508CB1E96846D0032BC68 = {
+						CreatedOnToolsVersion = 8.3;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = F94508C71E96846D0032BC68 /* Build configuration list for PBXProject "JJBurstingGame" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = F94508C31E96846D0032BC68;
+			productRefGroup = F94508CD1E96846D0032BC68 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				F94508CB1E96846D0032BC68 /* JJBurstingGame */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		F94508CA1E96846D0032BC68 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F94508E11E96846D0032BC68 /* Main.storyboard in Resources */,
+				F9079EB11E96B46E00690BF3 /* MyFireParticle.sks in Resources */,
+				F94508D61E96846D0032BC68 /* GameScene.sks in Resources */,
+				F94508E31E96846D0032BC68 /* Assets.xcassets in Resources */,
+				F94508E61E96846D0032BC68 /* LaunchScreen.storyboard in Resources */,
+				F94508D81E96846D0032BC68 /* Actions.sks in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		F94508C81E96846D0032BC68 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				F94508DE1E96846D0032BC68 /* GameViewController.m in Sources */,
+				F94508D41E96846D0032BC68 /* AppDelegate.m in Sources */,
+				F94508DB1E96846D0032BC68 /* GameScene.m in Sources */,
+				F94508D11E96846D0032BC68 /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		F94508DF1E96846D0032BC68 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F94508E01E96846D0032BC68 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		F94508E41E96846D0032BC68 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				F94508E51E96846D0032BC68 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		F94508E81E96846D0032BC68 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		F94508E91E96846D0032BC68 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		F94508EB1E96846D0032BC68 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = JJBurstingGame/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.julcompa.JJBurstingGame;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		F94508EC1E96846D0032BC68 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = JJBurstingGame/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = com.julcompa.JJBurstingGame;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		F94508C71E96846D0032BC68 /* Build configuration list for PBXProject "JJBurstingGame" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F94508E81E96846D0032BC68 /* Debug */,
+				F94508E91E96846D0032BC68 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		F94508EA1E96846D0032BC68 /* Build configuration list for PBXNativeTarget "JJBurstingGame" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				F94508EB1E96846D0032BC68 /* Debug */,
+				F94508EC1E96846D0032BC68 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = F94508C41E96846D0032BC68 /* Project object */;
+}
