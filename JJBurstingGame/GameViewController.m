@@ -8,22 +8,30 @@
 
 #import "GameViewController.h"
 #import "GameScene.h"
+#import "SKScene+unarchiver.h"
 
 @implementation GameViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-
-    // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
-    // including entities and graphs.
-    GKScene *scene = [GKScene sceneWithFileNamed:@"GameScene"];
     
-    // Get the SKScene from the loaded GKScene
-    GameScene *sceneNode = (GameScene *)scene.rootNode;
-    
-    // Copy gameplay related content over to the scene
-    sceneNode.entities = [scene.entities mutableCopy];
-    sceneNode.graphs = [scene.graphs mutableCopy];
+    GameScene *sceneNode = nil;
+    if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_9_x_Max)
+    {
+        // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
+        // including entities and graphs.
+        GKScene *scene = [GKScene sceneWithFileNamed:@"GameScene"];
+        sceneNode = (GameScene *)scene.rootNode;
+        // Copy gameplay related content over to the scene
+        sceneNode.entities = [scene.entities mutableCopy];
+        sceneNode.graphs = [scene.graphs mutableCopy];
+    }
+    else
+    {
+        // Load 'GameScene.sks' as a SKScene. This provides gameplay related content
+        // including entities and graphs.
+        sceneNode = [GameScene unarchiveFromFile:@"GameScene"];
+    }
     
     // Set the scale mode to scale to fit the window
     sceneNode.scaleMode = SKSceneScaleModeAspectFill;

@@ -17,6 +17,7 @@
 		F94508E11E96846D0032BC68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F94508DF1E96846D0032BC68 /* Main.storyboard */; };
 		F94508E31E96846D0032BC68 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F94508E21E96846D0032BC68 /* Assets.xcassets */; };
 		F94508E61E96846D0032BC68 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F94508E41E96846D0032BC68 /* LaunchScreen.storyboard */; };
+		F9DB6E4F1E9739D30083A953 /* SKScene+unarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = F9DB6E4E1E9739D30083A953 /* SKScene+unarchiver.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -35,6 +36,8 @@
 		F94508E21E96846D0032BC68 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F94508E51E96846D0032BC68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		F94508E71E96846D0032BC68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F9DB6E4D1E9739D30083A953 /* SKScene+unarchiver.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SKScene+unarchiver.h"; sourceTree = "<group>"; };
+		F9DB6E4E1E9739D30083A953 /* SKScene+unarchiver.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "SKScene+unarchiver.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -73,6 +76,8 @@
 				F94508D71E96846D0032BC68 /* Actions.sks */,
 				F94508D91E96846D0032BC68 /* GameScene.h */,
 				F94508DA1E96846D0032BC68 /* GameScene.m */,
+				F9DB6E4D1E9739D30083A953 /* SKScene+unarchiver.h */,
+				F9DB6E4E1E9739D30083A953 /* SKScene+unarchiver.m */,
 				F9079EB01E96B46E00690BF3 /* MyFireParticle.sks */,
 				F94508DC1E96846D0032BC68 /* GameViewController.h */,
 				F94508DD1E96846D0032BC68 /* GameViewController.m */,
@@ -124,6 +129,7 @@
 				TargetAttributes = {
 					F94508CB1E96846D0032BC68 = {
 						CreatedOnToolsVersion = 8.3;
+						DevelopmentTeam = N48L8P96U8;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -168,6 +174,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				F94508DE1E96846D0032BC68 /* GameViewController.m in Sources */,
+				F9DB6E4F1E9739D30083A953 /* SKScene+unarchiver.m in Sources */,
 				F94508D41E96846D0032BC68 /* AppDelegate.m in Sources */,
 				F94508DB1E96846D0032BC68 /* GameScene.m in Sources */,
 				F94508D11E96846D0032BC68 /* main.m in Sources */,
@@ -237,7 +244,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -280,7 +287,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -292,8 +299,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = N48L8P96U8;
 				INFOPLIST_FILE = JJBurstingGame/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.julcompa.JJBurstingGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -304,8 +312,9 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = N48L8P96U8;
 				INFOPLIST_FILE = JJBurstingGame/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.julcompa.JJBurstingGame;
 				PRODUCT_NAME = "$(TARGET_NAME)";
