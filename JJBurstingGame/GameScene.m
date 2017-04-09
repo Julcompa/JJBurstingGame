@@ -27,13 +27,17 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
     // Moving items
     //NOTE: We just need one node that we can copy for reuse and randomly display it.
     SKSpriteNode *_movingNode;
-    SKTexture *_movingNodeTexture;
+    NSArray *_movingNodeTextures;
+    //SKTexture *_movingNodeTexture;
+    
     // Central item
     //NOTE: This central item changes according to the score (we might need several nodes to reflect it...). We just create it once
     SKSpriteNode *_centerNodeDefault;
     //SKSpriteNode *_centerNode1;
     //SKSpriteNode *_centerNode2;
     //SKSpriteNode *_centerNode3;
+    
+    //TODO: change it and create an array of texture
     SKTexture *_centerNodeDefaultTexture;
     SKTexture *_centerNode1Texture;
     SKTexture *_centerNode2Texture;
@@ -178,7 +182,7 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
     _defaultTexture = [SKTexture textureWithImageNamed:@"defaultTexture"];
     
     // Create nodes
-    _movingNode = [self createBurstingSpriteWithTexture:_movingNodeTexture];
+    _movingNode = [self createBurstingSpriteWithTexture:(_movingNodeTextures.count > 0) ? _movingNodeTextures[0] : nil];
     
     // Create Wall/ground/roof for collision
     _wall = [self createWall];
@@ -211,18 +215,23 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
     switch (status) {
         case GameSceneStimulusStatusDefault:
             _centerNodeDefault.texture = _centerNodeDefaultTexture ? _centerNodeDefaultTexture : _defaultTexture;
+            [_centerNodeDefault runAction:[SKAction scaleTo:1. duration:0.1]];
             break;
         case GameSceneStimulusStatus1:
             _centerNodeDefault.texture = _centerNode1Texture ? _centerNode1Texture : _defaultTexture;
+            [_centerNodeDefault runAction:[SKAction scaleTo:1.5 duration:0.1]];
             break;
         case GameSceneStimulusStatus2:
             _centerNodeDefault.texture = _centerNode2Texture ? _centerNode2Texture : _defaultTexture;
+            [_centerNodeDefault runAction:[SKAction scaleTo:2. duration:0.1]];
             break;
         case GameSceneStimulusStatus3:
             _centerNodeDefault.texture = _centerNode3Texture ? _centerNode3Texture : _defaultTexture;
+            [_centerNodeDefault runAction:[SKAction scaleTo:2.5 duration:0.1]];
             break;
         default:
             _centerNodeDefault.texture = _centerNodeDefaultTexture ? _centerNodeDefaultTexture : _defaultTexture;
+            [_centerNodeDefault runAction:[SKAction scaleTo:1. duration:0.1]];
             break;
     }
 }
@@ -272,6 +281,12 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
 {
     SKSpriteNode *node = [_movingNode copy];
     node.position = [self randomStartingPoint];
+    
+    if(_movingNodeTextures.count > 0)
+    {
+        NSUInteger randomIndex = (NSUInteger)arc4random_uniform((uint32_t)_movingNodeTextures.count);
+        node.texture = _movingNodeTextures[randomIndex];
+    }
     [self addChild:node];
     _movingNodesAdded++;
 }
@@ -298,22 +313,71 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
     [node runAction:burstingSequence];
     // Add FX
     SKEmitterNode *burstNode = [_burstFx copy];
+    burstNode.particleColor = [self generateRandomColor];
     burstNode.position = node.position;
     [self addChild:burstNode];
 }
 
+- (void)processFireworks
+{
+    SKAction *fireWorks = [SKAction runBlock:^{
+        // trigger fireworks!!
+        for (NSInteger i = 0; i < 3; i++) {
+            SKEmitterNode *burstFxNode = [_burstFx copy];
+            burstFxNode.position = [self randomPointIntoGameBoard];
+            burstFxNode.particleColor = [self generateRandomColor];
+            [self addChild:burstFxNode];
+        }
+    }];
+    SKAction *wait = [SKAction waitForDuration:0.5];
+    SKAction *FireworksWithDelay = [SKAction sequence:@[fireWorks,wait]];
+    SKAction *multipleFireworks = [SKAction repeatAction:FireworksWithDelay count:5];
+    [self runAction:multipleFireworks];
+}
+
 - (void)processTheEndOfGame
 {
-    //TODO: Write an ending for the game
     NSLog(@"This is the end of the game buddy");
     _isEndGameInProcess = YES;
-    [self addChild:_resetButton];
+    [self runAction:[SKAction sequence:@[[SKAction waitForDuration:2],
+                                         [SKAction runBlock:^{
+        [self addChild:_resetButton];
+    }]]]];
+    [self processPlayerWinning];
+}
+
+- (void)processPlayerWinning
+{
+    NSLog(@"You win :)");
+    [self processFireworks];
+    [self enumerateChildNodesWithName:kMovingNodeName usingBlock:^(SKNode * _Nonnull node, BOOL * _Nonnull stop) {
+        [self processBurstingForNode:(SKSpriteNode *)node];
+    }];
+    
+    //TODO: Change it for a better way
+    if (_centerNodeDefault && _centerNode1Texture &&
+        _centerNode2Texture && _centerNode3Texture)
+    {
+        SKAction *rainbowOFApples = [SKAction animateWithTextures:@[_centerNodeDefaultTexture,
+                                                                    _centerNode1Texture,
+                                                                    _centerNode2Texture,
+                                                                    _centerNode3Texture]
+                                                     timePerFrame:0.1];
+        SKAction *rainbowOFApplesLoop = [SKAction repeatActionForever:rainbowOFApples];
+        [_centerNodeDefault runAction:rainbowOFApplesLoop];
+    }
+}
+
+- (void)processPlayerLoosing
+{
+    NSLog(@"You Loose :(");
+    // Nothing yet
 }
 
 - (void)processResetGame
 {
     NSLog(@"process reset/restart");
-    
+    [self removeAllActions];
     [self removeAllChildren];
     [self generateGame];
 }
@@ -421,10 +485,11 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
     SKLabelNode *resetLabelButton = [SKLabelNode labelNodeWithText:resetLabelString];
     resetLabelButton.name = kResetButtonNodeName;
     resetLabelButton.zPosition = 3;
-    resetLabelButton.color = [UIColor whiteColor];
+    resetLabelButton.fontSize = resetLabelButton.fontSize + 2;
+    resetLabelButton.fontColor = [UIColor whiteColor];
     resetLabelButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)-300);
     
-    SKAction *scaleUp = [SKAction scaleTo:1.2 duration:0.10];
+    SKAction *scaleUp = [SKAction scaleTo:3. duration:0.10];
     SKAction *scaleDown = [SKAction scaleTo:1. duration:0.10];
     SKAction *wait = [SKAction waitForDuration:3];
     SKAction *sequence = [SKAction sequence:@[scaleUp,scaleDown,wait]];
@@ -436,9 +501,23 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
 
 #pragma mark - Textures
 
+- (void)addTextureForBurstingObject:(NSArray<SKTexture *> *)textures
+{
+    if(!_movingNodeTextures)
+    {
+        _movingNodeTextures = [NSArray arrayWithArray:textures];
+    }
+    else
+    {
+        NSMutableArray *temp = [NSMutableArray arrayWithArray:_movingNodeTextures];
+        [temp addObjectsFromArray:textures];
+        _movingNodeTextures = [NSArray arrayWithArray:temp];
+    }
+}
+
 - (void)setTextureForBurstingObject:(SKTexture *)texture
 {
-    _movingNodeTexture = texture;
+    _movingNodeTextures = @[texture];
 }
 
 - (void)setTextureForStimulusObject:(SKTexture *)texture status:(GameSceneStimulusStatus)status
@@ -464,12 +543,48 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
 
 #pragma mark - Convenience
 
+- (SKColor *)generateRandomColor
+{
+    // Random RGB
+    CGFloat red  = (CGFloat)(arc4random_uniform(256) / 256.f);
+    CGFloat green  = (CGFloat)(arc4random_uniform(256) / 256.f);
+    CGFloat blue  = (CGFloat)(arc4random_uniform(256) / 256.f);
+    return [SKColor colorWithRed:red green:green blue:blue alpha:1];
+}
+
+- (SKColor *)generateRandomPastelColor
+{
+    // Random RGB
+    CGFloat red  = (CGFloat)(arc4random_uniform(256) / 256.f);
+    CGFloat green  = (CGFloat)(arc4random_uniform(256) / 256.f);
+    CGFloat blue  = (CGFloat)(arc4random_uniform(256) / 256.f);
+    
+    // Mix with light-blue because it's pastel
+    CGFloat mixRed = 1+0xad/256;
+    CGFloat mixGreen = 1+0xd8/256;
+    CGFloat mixBlue = 1+0xe6/256;
+    red = (red + mixRed) / 3;
+    green = (green + mixGreen) / 3;
+    blue = (blue + mixBlue) / 3;
+    return [SKColor colorWithRed:red green:green blue:blue alpha:1];
+}
+
 - (CGPoint)randomStartingPoint
 {
     CGFloat width = self.frame.size.width;
     CGFloat height = self.frame.size.height;
     CGFloat x = arc4random_uniform(width+1) - (width/2);
     CGFloat y = height/2;
+    CGPoint pos = CGPointMake(x, y);
+    return pos;
+}
+
+- (CGPoint)randomPointIntoGameBoard
+{
+    CGFloat width = self.frame.size.width;
+    CGFloat height = self.frame.size.height;
+    CGFloat x = arc4random_uniform(width+1) - (width/2);
+    CGFloat y = arc4random_uniform(height+1) - (height/2);
     CGPoint pos = CGPointMake(x, y);
     return pos;
 }

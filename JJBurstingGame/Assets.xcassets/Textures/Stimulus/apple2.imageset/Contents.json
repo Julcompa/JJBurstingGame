@@ -6,11 +6,11 @@
     },
     {
       "idiom" : "universal",
+      "filename" : "apple2-240x309.png",
       "scale" : "2x"
     },
     {
       "idiom" : "universal",
-      "filename" : "appleDefault-240x264.png",
       "scale" : "3x"
     }
   ],

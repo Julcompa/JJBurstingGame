@@ -35,9 +35,15 @@
     
     // Set the scale mode to scale to fit the window
     sceneNode.scaleMode = SKSceneScaleModeAspectFill;
-    [sceneNode setTextureForBurstingObject:[SKTexture textureWithImageNamed:@"carote"]];
-    [sceneNode setMaxMovingNodesAllowed:1];
-    [sceneNode updateGravity:-1.];
+    [sceneNode addTextureForBurstingObject:@[[SKTexture textureWithImageNamed:@"apple"],
+                                             [SKTexture textureWithImageNamed:@"carote"]]];
+    [sceneNode setTextureForStimulusObject:[SKTexture textureWithImageNamed:@"appleDefault"] status:GameSceneStimulusStatusDefault];
+    [sceneNode setTextureForStimulusObject:[SKTexture textureWithImageNamed:@"apple1"] status:GameSceneStimulusStatus1];
+    [sceneNode setTextureForStimulusObject:[SKTexture textureWithImageNamed:@"apple2"] status:GameSceneStimulusStatus2];
+    [sceneNode setTextureForStimulusObject:[SKTexture textureWithImageNamed:@"apple3"] status:GameSceneStimulusStatus3];
+    [sceneNode setMaxMovingNodesAllowed:15];
+    [sceneNode updateGravity:-1.5];
+    [sceneNode setMaxScore:15];
     
     SKView *skView = (SKView *)self.view;
     
