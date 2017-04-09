@@ -41,9 +41,11 @@
     [sceneNode setTextureForStimulusObject:[SKTexture textureWithImageNamed:@"apple1"] status:GameSceneStimulusStatus1];
     [sceneNode setTextureForStimulusObject:[SKTexture textureWithImageNamed:@"apple2"] status:GameSceneStimulusStatus2];
     [sceneNode setTextureForStimulusObject:[SKTexture textureWithImageNamed:@"apple3"] status:GameSceneStimulusStatus3];
-    [sceneNode setMaxMovingNodesAllowed:15];
-    [sceneNode updateGravity:-1.5];
-    [sceneNode setMaxScore:15];
+    //[sceneNode updateGravity:-1.5];
+    //[sceneNode setMaxMovingNodesAllowed:15];
+    //[sceneNode setMaxScore:15];
+    //[sceneNode setDuration:30];
+    //[sceneNode setInactivityDuration:10];
     
     SKView *skView = (SKView *)self.view;
     

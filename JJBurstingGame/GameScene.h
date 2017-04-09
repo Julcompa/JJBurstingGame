@@ -26,6 +26,9 @@ typedef enum : NSUInteger {
 
 @property (nonatomic) NSUInteger maxMovingNodesAllowed; // default is 15.
 
+@property (nonatomic) NSTimeInterval duration; // default is 120 seconds before Game Over
+@property (nonatomic) NSTimeInterval inactivityDuration; // default is 60 seconds before Game Over
+
 - (void)updateGravity:(CGFloat)gravity;
 
 - (void)setTextureForBurstingObject:(SKTexture *)texture;

@@ -18,6 +18,8 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
 @implementation GameScene
 {
     NSTimeInterval _lastUpdateTime;
+    NSTimeInterval _elapsedTime;
+    NSTimeInterval _inactivityTime;
     GameSceneStimulusStatus _currentStatus;
     NSInteger _movingNodesAdded;
     NSInteger _internalScore;
@@ -75,6 +77,8 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
     
     // Calculate time since last update
     CGFloat dt = currentTime - _lastUpdateTime;
+    _elapsedTime += dt;
+    _inactivityTime += dt;
     
     // Update entities
     for (GKEntity *entity in self.entities) {
@@ -119,9 +123,13 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
 
 #pragma mark - Touch Events
 
-- (void)touchDownAtPoint:(CGPoint)pos {
+- (void)touchDownAtPoint:(CGPoint)pos
+{
+    _inactivityTime = 0; // reset inactivity
+    
     SKNode *node = [self nodeAtPoint:pos];
-    if ([node.name isEqualToString:kMovingNodeName] && [node containsPoint:pos]) {
+    if ([node.name isEqualToString:kMovingNodeName] && [node containsPoint:pos])
+    {
         NSLog(@"YaY");
         // you touch the object and not it will burst!
         [self increaseScore];
@@ -129,13 +137,18 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
     }
 }
 
-- (void)touchMovedToPoint:(CGPoint)pos {
-    // nothing
+- (void)touchMovedToPoint:(CGPoint)pos
+{
+    _inactivityTime = 0; // reset inactivity
 }
 
-- (void)touchUpAtPoint:(CGPoint)pos {
+- (void)touchUpAtPoint:(CGPoint)pos
+{
+    _inactivityTime = 0; // reset inactivity
+    
     SKNode *node = [self nodeAtPoint:pos];
-    if ([node.name isEqualToString:kResetButtonNodeName] && [node containsPoint:pos]) {
+    if ([node.name isEqualToString:kResetButtonNodeName] && [node containsPoint:pos])
+    {
         NSLog(@"You tap reset/restart");
         [self processResetGame];
     }
@@ -160,6 +173,13 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
 {
     // Setup your scene here
     self.physicsWorld.contactDelegate = self;
+    
+    // Initialize game duration time
+    if(!_duration) { _duration = 120; }
+    if(!_inactivityDuration) { _inactivityDuration = 60; }
+    _lastUpdateTime = 0;
+    _elapsedTime = 0;
+    _inactivityTime = 0;
     
     // Initialize Game Status
     _isEndGameInProcess = NO;
@@ -253,7 +273,10 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
 - (BOOL)isGameFinished
 {
     BOOL isGameShoudFinished = NO;
-    if (_internalScore >= _maxScore) {
+    if (_internalScore  >= _maxScore ||
+        _elapsedTime    >  _duration ||
+        _inactivityTime >  _inactivityDuration)
+    {
         isGameShoudFinished = YES;
     }
     return isGameShoudFinished;
