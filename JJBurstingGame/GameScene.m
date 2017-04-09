@@ -13,6 +13,7 @@ static const uint32_t kWallCategory = 0x1 << 1;
 static NSString * const kMovingNodeName = @"movingNode";
 static NSString * const kWallNodeName = @"wallNode";
 static NSString * const kStimulusNodeName = @"stimulusNode";
+static NSString * const kResetButtonNodeName = @"resetButtonNode";
 
 @implementation GameScene
 {
@@ -20,6 +21,8 @@ static NSString * const kStimulusNodeName = @"stimulusNode";
     GameSceneStimulusStatus _currentStatus;
     NSInteger _movingNodesAdded;
     NSInteger _internalScore;
+    
+    BOOL _isEndGameInProcess;
     
     // Moving items
     //NOTE: We just need one node that we can copy for reuse and randomly display it.
@@ -42,6 +45,9 @@ static NSString * const kStimulusNodeName = @"stimulusNode";
     // FX item
     //NOTE: We need a particles emitter to give a feeback when we tap on a moving item (e.g. explosion)
     SKEmitterNode *_burstFx;
+    
+    SKLabelNode *_scoreLebelNode;
+    SKLabelNode *_resetButton;
     
     // Default texture in case no texture set
     SKTexture *_defaultTexture;
@@ -73,7 +79,10 @@ static NSString * const kStimulusNodeName = @"stimulusNode";
     
     if ([self isGameFinished])
     {
-        [self processTheEndOfGame];
+        if (!_isEndGameInProcess)
+        {
+            [self processTheEndOfGame];
+        }
     }
     else
     {
@@ -112,10 +121,7 @@ static NSString * const kStimulusNodeName = @"stimulusNode";
         NSLog(@"YaY");
         // you touch the object and not it will burst!
         [self increaseScore];
-        SKEmitterNode *burstNode = [_burstFx copy];
-        burstNode.position = node.position;
-        [self removeMovingNodeFromGame:(SKSpriteNode *)node];
-        [self addChild:burstNode];
+        [self processBurstingForNode:(SKSpriteNode *)node];
     }
 }
 
@@ -124,7 +130,11 @@ static NSString * const kStimulusNodeName = @"stimulusNode";
 }
 
 - (void)touchUpAtPoint:(CGPoint)pos {
-    // nothing
+    SKNode *node = [self nodeAtPoint:pos];
+    if ([node.name isEqualToString:kResetButtonNodeName] && [node containsPoint:pos]) {
+        NSLog(@"You tap reset/restart");
+        [self processResetGame];
+    }
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -147,16 +157,19 @@ static NSString * const kStimulusNodeName = @"stimulusNode";
     // Setup your scene here
     self.physicsWorld.contactDelegate = self;
     
+    // Initialize Game Status
+    _isEndGameInProcess = NO;
+    
     // Initialize update time
     _lastUpdateTime = 0;
     
     // Number of nodes displayed
     _movingNodesAdded = 0;
-    _maxMovingNodesAllowed = 15;
+    if(!_maxMovingNodesAllowed) { _maxMovingNodesAllowed = 15; }
     
     // Initialize score
     _internalScore = 0;
-    _maxScore = 15;
+    if(!_maxScore) { _maxScore = 15; };
     
     // InitializeStatus
     _currentStatus = GameSceneStimulusStatusDefault;
@@ -176,9 +189,16 @@ static NSString * const kStimulusNodeName = @"stimulusNode";
     // Create centered node
     _centerNodeDefault = [self createSimulusSpriteWithTexture:_centerNodeDefaultTexture];
     
+    // Create score lable
+    _scoreLebelNode = [self createScoreLabel];
+    
+    // Create Reset/Restart button
+    _resetButton = [self createResetButton];
+    
     // Add childs
     [self addChild:_wall];
     [self addChild:_centerNodeDefault];
+    [self addChild:_scoreLebelNode];
 }
 
 - (void)updateGravity:(CGFloat)gravity
@@ -205,6 +225,11 @@ static NSString * const kStimulusNodeName = @"stimulusNode";
             _centerNodeDefault.texture = _centerNodeDefaultTexture ? _centerNodeDefaultTexture : _defaultTexture;
             break;
     }
+}
+
+- (void)updateScoreLabelWithScore:(NSInteger)score
+{
+    _scoreLebelNode.text = [NSString stringWithFormat:@"score : %@", @(score)];
 }
 
 - (BOOL)isAddingNewNodeAllowed
@@ -258,10 +283,39 @@ static NSString * const kStimulusNodeName = @"stimulusNode";
     _movingNodesAdded--;
 }
 
+- (void)processBurstingForNode:(SKSpriteNode *)node
+{
+    // Actions
+    SKAction *removing = [SKAction runBlock:^{
+        [self removeMovingNodeFromGame:node];
+    }];
+    SKAction *burstingSequence = [SKAction sequence:
+                                  @[
+                                   [SKAction scaleBy:2. duration:0.10],
+                                   removing
+                                  ]];
+    [node runAction:[SKAction fadeOutWithDuration:0.25]];
+    [node runAction:burstingSequence];
+    // Add FX
+    SKEmitterNode *burstNode = [_burstFx copy];
+    burstNode.position = node.position;
+    [self addChild:burstNode];
+}
+
 - (void)processTheEndOfGame
 {
     //TODO: Write an ending for the game
     NSLog(@"This is the end of the game buddy");
+    _isEndGameInProcess = YES;
+    [self addChild:_resetButton];
+}
+
+- (void)processResetGame
+{
+    NSLog(@"process reset/restart");
+    
+    [self removeAllChildren];
+    [self generateGame];
 }
 
 #pragma mark - Scoring
@@ -271,6 +325,7 @@ static NSString * const kStimulusNodeName = @"stimulusNode";
     if (newscore >= 0 && newscore <= _maxScore) {
         _internalScore = newscore;
         [self updateStimulusWithStatus:[self statusForScore:_internalScore]];
+        [self updateScoreLabelWithScore:_internalScore];
     }
 }
 
@@ -302,7 +357,10 @@ static NSString * const kStimulusNodeName = @"stimulusNode";
     SKSpriteNode *burstingNode = [SKSpriteNode spriteNodeWithTexture:texture];
     burstingNode.name = kMovingNodeName;
     burstingNode.zPosition = 2;
-    burstingNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:texture.size];
+    CGFloat collisionExtension = 0.f;
+    CGSize collisionRect = CGSizeMake(texture.size.height + collisionExtension, texture.size.width + collisionExtension);
+    burstingNode.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:collisionRect];
+    burstingNode.physicsBody.usesPreciseCollisionDetection = YES;
     burstingNode.physicsBody.mass = 2;
     burstingNode.physicsBody.dynamic = YES;
     burstingNode.physicsBody.categoryBitMask = kMovingNodeCategory;
@@ -339,11 +397,41 @@ static NSString * const kStimulusNodeName = @"stimulusNode";
 {
     NSString *burstPath = [[NSBundle mainBundle] pathForResource:@"MyFireParticle" ofType:@"sks"];
     SKEmitterNode *burstFx = [NSKeyedUnarchiver unarchiveObjectWithFile:burstPath];
+    burstFx.zPosition = 1;
     [burstFx runAction:[SKAction sequence:@[
                                              [SKAction fadeOutWithDuration:2.],
                                              [SKAction removeFromParent]
                                              ]]];
     return burstFx;
+}
+
+- (SKLabelNode *)createScoreLabel
+{
+    NSString *scoreString = @"score : 0";
+    SKLabelNode *scoreLabelNode = [SKLabelNode labelNodeWithText:scoreString];
+    scoreLabelNode.zPosition = 1;
+    scoreLabelNode.color = [UIColor whiteColor];
+    scoreLabelNode.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMinY(self.frame)+150);
+    return scoreLabelNode;
+}
+
+- (SKLabelNode *)createResetButton
+{
+    NSString *resetLabelString = @"restart";
+    SKLabelNode *resetLabelButton = [SKLabelNode labelNodeWithText:resetLabelString];
+    resetLabelButton.name = kResetButtonNodeName;
+    resetLabelButton.zPosition = 3;
+    resetLabelButton.color = [UIColor whiteColor];
+    resetLabelButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)-300);
+    
+    SKAction *scaleUp = [SKAction scaleTo:1.2 duration:0.10];
+    SKAction *scaleDown = [SKAction scaleTo:1. duration:0.10];
+    SKAction *wait = [SKAction waitForDuration:3];
+    SKAction *sequence = [SKAction sequence:@[scaleUp,scaleDown,wait]];
+    SKAction *sequenceLoop = [SKAction repeatActionForever:sequence];
+    [resetLabelButton runAction:sequenceLoop];
+    
+    return resetLabelButton;
 }
 
 #pragma mark - Textures

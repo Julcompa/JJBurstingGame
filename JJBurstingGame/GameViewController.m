@@ -35,6 +35,9 @@
     
     // Set the scale mode to scale to fit the window
     sceneNode.scaleMode = SKSceneScaleModeAspectFill;
+    [sceneNode setTextureForBurstingObject:[SKTexture textureWithImageNamed:@"carote"]];
+    [sceneNode setMaxMovingNodesAllowed:1];
+    [sceneNode updateGravity:-1.];
     
     SKView *skView = (SKView *)self.view;
     
