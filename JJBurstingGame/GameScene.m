@@ -275,7 +275,8 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
     BOOL isGameShoudFinished = NO;
     if (_internalScore  >= _maxScore ||
         _elapsedTime    >  _duration ||
-        _inactivityTime >  _inactivityDuration)
+        _inactivityTime >  _inactivityDuration ||
+        _isEndGameInProcess)
     {
         isGameShoudFinished = YES;
     }
