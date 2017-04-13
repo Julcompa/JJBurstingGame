@@ -55,6 +55,10 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
     SKLabelNode *_scoreLebelNode;
     SKLabelNode *_resetButton;
     
+    // Background
+    SKSpriteNode *_backgroundNode;
+    SKTexture *_backgroundTexture;
+    
     // Default texture in case no texture set
     SKTexture *_defaultTexture;
 }
@@ -219,7 +223,11 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
     // Create Reset/Restart button
     _resetButton = [self createResetButton];
     
+    // Create Background
+    _backgroundNode = [self createBackgroundWithTexture:_backgroundTexture];
+    
     // Add childs
+    [self addChild:_backgroundNode];
     [self addChild:_wall];
     [self addChild:_centerNodeDefault];
     [self addChild:_scoreLebelNode];
@@ -499,7 +507,9 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
     SKLabelNode *scoreLabelNode = [SKLabelNode labelNodeWithText:scoreString];
     scoreLabelNode.zPosition = 1;
     scoreLabelNode.color = [UIColor whiteColor];
-    scoreLabelNode.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMinY(self.frame)+150);
+    scoreLabelNode.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMinY(self.frame)+(self.frame.size.width / 20));
+    scoreLabelNode.fontName = @"GillSans-Bold";
+    scoreLabelNode.fontSize = self.frame.size.width / 20;
     return scoreLabelNode;
 }
 
@@ -509,9 +519,10 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
     SKLabelNode *resetLabelButton = [SKLabelNode labelNodeWithText:resetLabelString];
     resetLabelButton.name = kResetButtonNodeName;
     resetLabelButton.zPosition = 3;
-    resetLabelButton.fontSize = resetLabelButton.fontSize + 2;
+    resetLabelButton.fontName = @"GillSans-Bold";
+    resetLabelButton.fontSize = self.frame.size.width / 20;
     resetLabelButton.fontColor = [UIColor whiteColor];
-    resetLabelButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)-300);
+    resetLabelButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)-(self.frame.size.width / 10));
     
     SKAction *scaleUp = [SKAction scaleTo:3. duration:0.10];
     SKAction *scaleDown = [SKAction scaleTo:1. duration:0.10];
@@ -521,6 +532,14 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
     [resetLabelButton runAction:sequenceLoop];
     
     return resetLabelButton;
+}
+
+- (SKSpriteNode *)createBackgroundWithTexture:(SKTexture *)texture
+{
+    SKSpriteNode *bgNode = [SKSpriteNode spriteNodeWithTexture:texture];
+    bgNode.zPosition = 0;
+    bgNode.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    return bgNode;
 }
 
 #pragma mark - Textures
@@ -563,6 +582,11 @@ static NSString * const kResetButtonNodeName = @"resetButtonNode";
             _centerNodeDefaultTexture = texture;
             break;
     }
+}
+
+- (void)setTextureForBackground:(SKTexture *)texture
+{
+    _backgroundTexture = texture;
 }
 
 #pragma mark - Convenience

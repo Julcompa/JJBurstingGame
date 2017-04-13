@@ -34,5 +34,6 @@ typedef enum : NSUInteger {
 - (void)setTextureForBurstingObject:(SKTexture *)texture;
 - (void)addTextureForBurstingObject:(NSArray<SKTexture *> *)textures;
 - (void)setTextureForStimulusObject:(SKTexture *)texture status:(GameSceneStimulusStatus)status;
+- (void)setTextureForBackground:(SKTexture *)texture;
 
 @end

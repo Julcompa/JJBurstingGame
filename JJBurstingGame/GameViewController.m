@@ -35,6 +35,7 @@
     
     // Set the scale mode to scale to fit the window
     sceneNode.scaleMode = SKSceneScaleModeAspectFill;
+    [sceneNode setTextureForBackground:[SKTexture textureWithImageNamed:@"backgroundTexture"]];
     [sceneNode addTextureForBurstingObject:@[[SKTexture textureWithImageNamed:@"apple"],
                                              [SKTexture textureWithImageNamed:@"carote"]]];
     [sceneNode setTextureForStimulusObject:[SKTexture textureWithImageNamed:@"appleDefault"] status:GameSceneStimulusStatusDefault];
